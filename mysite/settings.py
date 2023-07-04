@@ -28,7 +28,7 @@ SECRET_KEY = 'django-insecure-ox_f!sr=nbit83uan1mh)mn@5uksp+r+ly&x=rw0q)*8$t9s#e
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost','invoicing-and-budget-management.onrender.com']
+ALLOWED_HOSTS = ['127.0.0.1','invoicing-and-budget-management.onrender.com']
 
 
 # Application definition
@@ -41,7 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
-    'rest_framework_simplejwt',
+    'rest_framework.authtoken',
     'authentication',
     'drf_yasg',
     'invoice',
@@ -132,25 +132,25 @@ STATIC_ROOT=os.path.join(BASE_DIR,'static')
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
-        'rest_framework_simplejwt.authentication.JWTAuthentication',
+        'rest_framework.authentication.BasicAuthentication',
         'rest_framework.authentication.SessionAuthentication',
     ],
 
-    # 'DEFAULT_PERMISSION_CLASSES': [
-    # 'rest_framework.permissions.IsAuthenticated',
-    # ],
+    'DEFAULT_PERMISSION_CLASSES': [
+    'rest_framework.permissions.AllowAny',
+    ],
     "DEFAULT_PAGINATION_CLASS":"rest_framework.pagination.LimitOffsetPagination",
     "PAGE_SIZE":10
 }
 
-JWT_AUTH = {
-    'JWT_SECRET_KEY': settings.SECRET_KEY, 
-    'JWT_EXPIRATION_DELTA': datetime.timedelta(days=1),
-    'JWT_ALGORITHM': 'HS256',  
-    'JWT_ALLOW_REFRESH': True,
-    'JWT_REFRESH_EXPIRATION_DELTA': datetime.timedelta(days=7),
-}
+# JWT_AUTH = {
+#     'JWT_SECRET_KEY': settings.SECRET_KEY, 
+#     'JWT_EXPIRATION_DELTA': datetime.timedelta(days=1),
+#     'JWT_ALGORITHM': 'HS256',  
+#     'JWT_ALLOW_REFRESH': True,
+#     'JWT_REFRESH_EXPIRATION_DELTA': datetime.timedelta(days=7),
+# }
 
 SWAGGER_SETTINGS = {
-    'DEFAULT_INFO': 'your_project.api.urls.swagger_info', 
+    'DEFAULT_INFO': 'mysite.api.urls.swagger_info', 
 }
