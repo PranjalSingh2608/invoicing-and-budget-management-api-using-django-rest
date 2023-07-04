@@ -18,6 +18,7 @@ class InvoiceSerializer(serializers.ModelSerializer):
         model = Invoice
         fields = '__all__'
     def create(self, validated_data):
+        user = self.context['request'].user
         client_data = validated_data.pop('client')
         company_data = validated_data.pop('company')
 
@@ -29,7 +30,7 @@ class InvoiceSerializer(serializers.ModelSerializer):
         client_serializer.is_valid(raise_exception=True)
         client = client_serializer.save()
 
-        invoice = Invoice.objects.create(client=client, company=company, **validated_data)
+        invoice = Invoice.objects.create(user=user,client=client, company=company, **validated_data)
     
 
         return invoice

@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 
 class Company(models.Model):
@@ -20,6 +21,7 @@ class Client(models.Model):
 
     
 class Invoice(models.Model):
+    user = models.ForeignKey(User, default=1, null=True, on_delete=models.SET_NULL)
     invoice_number=models.CharField(max_length=100)
     issue_date=models.DateField()
     due_date=models.DateField()

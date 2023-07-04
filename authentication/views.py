@@ -4,9 +4,10 @@ from rest_framework import generics, permissions
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from .serializers import RegisterSerializer, LoginSerializer
-from django.contrib.auth import authenticate
+from django.contrib.auth import authenticate,get_user_model
 from rest_framework.authtoken.models import Token
 
+User=get_user_model()
 
 class RegisterView(APIView):
     def post(self,request):

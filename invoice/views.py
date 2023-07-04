@@ -17,6 +17,14 @@ class InvoiceListCreateAPIView(generics.ListCreateAPIView):
     serializer_class=InvoiceSerializer
     permission_classes=[IsAuthenticated]
     authentication_classes=[TokenAuthentication]
+
+    def get_queryset(self):
+        user=self.request.user
+        return Invoice.objects.filter(user=user)
+    
+    def perform_create(self,serializer):
+        serializer.save(user=self.request.user)
+
 invoice_list_create_view=InvoiceListCreateAPIView.as_view()
 
 class InvoiceDetailAPIView(generics.RetrieveAPIView):
@@ -24,6 +32,11 @@ class InvoiceDetailAPIView(generics.RetrieveAPIView):
     serializer_class=InvoiceSerializer
     permission_classes=[IsAuthenticated]
     authentication_classes=[TokenAuthentication]
+
+    def get_queryset(self):
+        user = self.request.user
+        return Invoice.objects.filter(user=user)
+    
 invoice_detail_view=InvoiceDetailAPIView.as_view()
 
 class InvoiceUpdateAPIView(generics.UpdateAPIView):
@@ -31,6 +44,11 @@ class InvoiceUpdateAPIView(generics.UpdateAPIView):
     serializer_class=InvoiceSerializer
     permission_classes=[IsAuthenticated]
     authentication_classes=[TokenAuthentication]
+
+    def get_queryset(self):
+        user = self.request.user
+        return Invoice.objects.filter(user=user)
+    
 invoice_update_view=InvoiceUpdateAPIView.as_view()
 
 class InvoiceDestroyAPIView(generics.DestroyAPIView):
@@ -39,6 +57,11 @@ class InvoiceDestroyAPIView(generics.DestroyAPIView):
     permission_classes=[IsAuthenticated]
     authentication_classes=[TokenAuthentication]
     lookup_field='pk'    
+
+    def get_queryset(self):
+        user = self.request.user
+        return Invoice.objects.filter(user=user)
+    
     def perform_destroy(self, instance):
         super().perform_destroy(instance)
 

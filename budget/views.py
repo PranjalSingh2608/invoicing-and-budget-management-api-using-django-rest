@@ -18,6 +18,12 @@ class CategoryListCreateAPIView(generics.ListCreateAPIView):
     serializer_class = CategorySerializer
     permission_classes=[IsAuthenticated]
     authentication_classes=[TokenAuthentication]
+    def get_queryset(self):
+        user=self.request.user
+        return Category.objects.filter(user=user)
+    
+    def perform_create(self,serializer):
+        serializer.save(user=self.request.user)
 
 category_list_create_view=CategoryListCreateAPIView.as_view()
 
@@ -26,6 +32,10 @@ class CategoryRetrieveUpdateDestroyAPIView(generics.RetrieveUpdateDestroyAPIView
     serializer_class = CategorySerializer
     permission_classes=[IsAuthenticated]
     authentication_classes=[TokenAuthentication]
+
+    def get_queryset(self):
+        user = self.request.user
+        return Category.objects.filter(user=user)
 
 category_alter_view=CategoryRetrieveUpdateDestroyAPIView.as_view()
 
@@ -36,6 +46,14 @@ class ExpenseListCreateAPIView(generics.ListCreateAPIView):
     serializer_class = ExpenseSerializer
     permission_classes=[IsAuthenticated]
     authentication_classes=[TokenAuthentication]
+
+    def get_queryset(self):
+        user=self.request.user
+        return Expense.objects.filter(user=user)
+    
+    def perform_create(self,serializer):
+        serializer.save(user=self.request.user)
+
 expense_list_create_view=ExpenseListCreateAPIView.as_view()
 
 class ExpenseRetrieveUpdateDestroyAPIView(generics.RetrieveUpdateDestroyAPIView):
@@ -43,6 +61,10 @@ class ExpenseRetrieveUpdateDestroyAPIView(generics.RetrieveUpdateDestroyAPIView)
     serializer_class = ExpenseSerializer
     permission_classes=[IsAuthenticated]
     authentication_classes=[TokenAuthentication]
+
+    def get_queryset(self):
+        user = self.request.user
+        return Expense.objects.filter(user=user)
 
 expense_alter_view=ExpenseRetrieveUpdateDestroyAPIView.as_view()
 
