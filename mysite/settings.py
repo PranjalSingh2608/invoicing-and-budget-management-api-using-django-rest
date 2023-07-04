@@ -28,7 +28,7 @@ SECRET_KEY = 'django-insecure-ox_f!sr=nbit83uan1mh)mn@5uksp+r+ly&x=rw0q)*8$t9s#e
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['127.0.0.1','invoicing-and-budget-management.onrender.com']
+ALLOWED_HOSTS = ['127.0.0.1','invoicing-and-budget-management.onrender.com','invoicing-and-budget-management.onrender.com/docs']
 
 
 # Application definition
