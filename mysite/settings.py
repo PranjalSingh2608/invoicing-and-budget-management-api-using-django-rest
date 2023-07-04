@@ -26,7 +26,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-ox_f!sr=nbit83uan1mh)mn@5uksp+r+ly&x=rw0q)*8$t9s#e'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['127.0.0.1','invoicing-and-budget-management.onrender.com']
 
@@ -132,8 +132,8 @@ STATIC_ROOT=os.path.join(BASE_DIR,'static')
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
-        # 'rest_framework.authentication.BasicAuthentication',
-        # 'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.BasicAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
     ],
 
     'DEFAULT_PERMISSION_CLASSES': [
@@ -160,5 +160,6 @@ SWAGGER_SETTINGS = {
             'in': 'header',
             'name': 'Authorization'
         }
-    }
+    },
+    'USE_SESSION_AUTH': False,
 }
